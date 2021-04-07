@@ -16,13 +16,18 @@
     "sequelize": "6.6.2",
     "swagger-express-mw": "0.7.0",
     "swagger-tools": "0.10.4",
-    "yamljs": "0.3.0"
+    "yamljs": "0.3.0",
+    "dotenv": "8.2.0",
+    "bcrypt": "5.0.1"
   },
   "devDependencies": {
+    "sequelize-cli": "6.2.0",
     "should": "^7.1.0",
     "supertest": "^4.0.2"
   },
   "scripts": {
+    "start swagger": "swagger project start",
+    "edit swagger": "swagger project edit",
     "start": "node app.js",
     "test": "swagger project test"
   }

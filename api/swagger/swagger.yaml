@@ -1,6 +1,6 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  version: "1.0.0"
+  version: '1.0.0'
   title: nodejs-token-api
 
 host: localhost:10010
@@ -41,10 +41,11 @@ consumes:
   - application/json
 produces:
   - application/json
+
 paths:
 
   /login:
-    x-swagger-router-controller: login.controller
+    x-swagger-router-controller: auth.controller
 
     post:
       operationId: login
@@ -54,218 +55,220 @@ paths:
           in: body
           required: true
           schema:
-            $ref: "#/definitions/Authentication"
+            $ref: '#/definitions/Authentication'
       responses:
-        "200":
+        '200':
           description: Success
           schema:
-            $ref: "#/definitions/LoginResponse"
-        "403":
-          description: Access Denied
+            $ref: '#/definitions/LoginResponse'
+        '404':
+          description: User not found
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Invalid password
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
 
-  /user:
-    x-swagger-router-controller: user.controller
-
-    get:
-      operationId: getUsers
-      description: Find all
-      security:
-        - Bearer: []
-      x-security-scopes:
-        - admin
-        - user
-      parameters:
-        - name: role
-          in: query
-          required: false
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/UserList"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+  /sign-up:
+    x-swagger-router-controller: auth.controller
 
     post:
-      operationId: postUser
-      description: Create
+      operationId: register
+      description: Create a new user
       parameters:
         - name: user
           in: body
           required: true
           schema:
-            $ref: "#/definitions/User"
+            $ref: '#/definitions/User'
       responses:
-        "200":
+        '200':
           description: Success
           schema:
-            $ref: "#/definitions/UserResponse"
-        default:
+            $ref: '#/definitions/UserResponse'
+        '500':
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: '#/definitions/ErrorResponse'
 
-  /user/{id}:
-    x-swagger-router-controller: user.controller
+  /projects:
+    x-swagger-router-controller: project.controller
 
     get:
-      operationId: getUserById
-      description: Find by id
-      security:
-        - Bearer: []
-      x-security-scopes:
-        - admin
-        - user
-      parameters:
-        - name: id
-          type: string
-          in: path
-          required: true
+      operationId: getProjects
+      description: Returns all projects
       responses:
-        "200":
+        '200':
           description: success
           schema:
-            $ref: "#/definitions/UserResponse"
-        default:
+            $ref: '#/definitions/ProjectsResponse'
+        '500':
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      operationId: postProject
+      description: Save a new project
+      parameters:
+        - name: project
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        '201':
+          description: success
+          schema:
+            $ref: '#/definitions/ProjectResponse'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /projects/{id}:
+    x-swagger-router-controller: project.controller
 
     put:
-      operationId: putUser
-      description: Update
-      security:
-        - Bearer: []
-      x-security-scopes:
-        - admin
-        - user
+      operationId: putProject
+      description: Update an existing project
+#      security:
+#        - Bearer: []
+#      x-security-scopes:
+#        - admin
       parameters:
         - name: id
           type: string
           in: path
           required: true
-        - name: user
+        - name: project
           in: body
+          required: true
           schema:
-            $ref: "#/definitions/User"
+            $ref: '#/definitions/Project'
       responses:
-        "200":
-          description: Success
+        '200':
+          description: success
           schema:
-            $ref: "#/definitions/UserResponse"
-        default:
+            $ref: '#/definitions/ProjectResponse'
+        '404':
+          description: Project not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: '#/definitions/ErrorResponse'
 
     delete:
-      operationId: delUser
-      description: Delete
-      security:
-        - Bearer: []
-      x-security-scopes:
-        - admin
+      operationId: deleteProject
+      description: Delete an existing project
       parameters:
         - name: id
           in: path
           required: true
           type: string
       responses:
-        "200":
+        '200':
           description: Success
           schema:
-            $ref: "#/definitions/DelResponse"
-        default:
+            $ref: '#/definitions/DeleteResponse'
+        '404':
+          description: Project not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"
+            $ref: '#/definitions/ErrorResponse'
 
   /swagger:
     x-swagger-pipe: swagger_raw
 
 definitions:
 
-  # Generic responses
-
-  DelResponse:
-    type: object
-    properties:
-      success:
-        type: number
-        description: Returns 1 if successful
-      description:
-        type: string
-        description: A short comment
-    required:
-      - success
-      - description
+  # Responses
 
   ErrorResponse:
-    required:
-      - message
+    type: object
     properties:
+      successful:
+        type: boolean
       message:
         type: string
+      result:
+        type: string
 
-  # Login objects
+  DeleteResponse:
+    type: object
+    properties:
+      successful:
+        type: boolean
+      id:
+        type: integer
 
   LoginResponse:
     type: object
     properties:
+      successful:
+        type: boolean
+      message:
+        type: string
       token:
         type: string
-
-  Authentication:
-    type: object
-    properties:
-      username:
-        type: string
-      password:
-        type: string
-      role:
-        type: string
-
-  # User objects
-
-  User:
-    type: object
-    properties:
-      username:
-        type: string
-      password:
-        type: string
-      role:
-        type: string
-    required:
-      - username
-      - password
-      - role
 
   UserResponse:
     type: object
     properties:
-      id:
-        type: number
-      username:
+      successful:
+        type: boolean
+      message:
+        type: string
+      result:
+        $ref: '#/definitions/User'
+
+  ProjectResponse:
+    type: object
+    properties:
+      successful:
+        type: boolean
+      message:
+        type: string
+      result:
+        $ref: '#/definitions/Project'
+
+  ProjectsResponse:
+    properties:
+      projects:
+        type: array
+        items:
+          $ref: '#/definitions/Project'
+
+  # Data objects
+
+  Authentication:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
         type: string
       role:
         type: string
-    required:
-      - id
-      - username
-      - role
 
-  UserList:
+  User:
+    type: object
     properties:
-      users:
-        type: array
-        items:
-          $ref: "#/definitions/UserResponse"
+      email:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
 
   Project:
     type: object
@@ -283,6 +286,8 @@ definitions:
       year:
         type: integer
       finished:
+        type: boolean
+      updates:
         type: boolean
       executableUrl:
         type: string
