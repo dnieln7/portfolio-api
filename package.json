@@ -1,8 +1,8 @@
 {
-  "name": "nodejs-token-api",
+  "name": "portfolio-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Example of how to use tokens",
+  "description": "",
   "keywords": [],
   "author": "dnieln7",
   "license": "",
