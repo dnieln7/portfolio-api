@@ -74,7 +74,7 @@ function verifyToken(req, authOrSecDef, header, callback) {
             if (error == null && Array.isArray(currentScopes) && tokenInfo && tokenInfo.role) {
 
                 const containsRole = currentScopes.indexOf(tokenInfo.role) !== -1;
-                const correctIssuer = tokenInfo.iss === process.env.ISSUER;
+                const correctIssuer = tokenInfo.issuer === process.env.ISSUER;
 
                 if (containsRole && correctIssuer) {
                     req.auth = tokenInfo;
