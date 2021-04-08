@@ -80,6 +80,10 @@ paths:
     post:
       operationId: register
       description: Create a new user
+      security:
+        - Bearer: []
+      x-security-scopes:
+        - admin
       parameters:
         - name: user
           in: body
@@ -114,6 +118,10 @@ paths:
     post:
       operationId: postProject
       description: Save a new project
+      security:
+        - Bearer: []
+      x-security-scopes:
+        - admin
       parameters:
         - name: project
           in: body
@@ -158,10 +166,10 @@ paths:
     put:
       operationId: putProject
       description: Update an existing project
-      #      security:
-      #        - Bearer: []
-      #      x-security-scopes:
-      #        - admin
+      security:
+        - Bearer: []
+      x-security-scopes:
+        - admin
       parameters:
         - name: id
           type: string
@@ -189,6 +197,10 @@ paths:
     delete:
       operationId: deleteProject
       description: Delete an existing project
+      security:
+        - Bearer: []
+      x-security-scopes:
+        - admin
       parameters:
         - name: id
           in: path
