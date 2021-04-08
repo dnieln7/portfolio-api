@@ -133,13 +133,35 @@ paths:
   /projects/{id}:
     x-swagger-router-controller: project.controller
 
+    get:
+      operationId: getProjectById
+      description: Returns a project that matches the provided id
+      parameters:
+        - name: id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: "#/definitions/ProjectResponse"
+        '404':
+          description: Project not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
     put:
       operationId: putProject
       description: Update an existing project
-#      security:
-#        - Bearer: []
-#      x-security-scopes:
-#        - admin
+      #      security:
+      #        - Bearer: []
+      #      x-security-scopes:
+      #        - admin
       parameters:
         - name: id
           type: string

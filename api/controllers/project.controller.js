@@ -10,6 +10,20 @@ function getProjects(req, res) {
         .catch(reason => res.status(500).send(getResponse(false, "There was an error", reason.toString())));
 }
 
+function getProjectById(req, res) {
+    applyHeaders(res);
+
+    const id = req.swagger.params.id.value;
+
+    tb_projects.findByPk(id).then(project => {
+        if (!project) {
+            return res.status(404).send(getResponse(false, "Project not found", id));
+        }
+
+        return res.status(200).send(getResponse(true, "Project found", project));
+    }).catch(reason => res.status(500).send(getResponse(false, "There was an error", reason.toString())));
+}
+
 function postProject(req, res) {
     applyHeaders(res);
 
@@ -55,6 +69,7 @@ function deleteProject(req, res) {
 
 module.exports = {
     getProjects,
+    getProjectById,
     postProject,
     putProject,
     deleteProject
