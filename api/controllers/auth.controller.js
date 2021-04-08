@@ -88,12 +88,12 @@ function verifyToken(req, authOrSecDef, header, callback) {
             }
         });
     } else {
-        return callback(sendAuthError());
+        return callback(sendAuthError(req));
     }
 }
 
 function sendAuthError(req) {
-    return req.res.status(403).send(getResponse(false, "Access Denied", {}));
+    return req.res.status(403).send(getResponse(false, "Access Denied", "You are not authorized to see this content"));
 }
 
 module.exports = {
