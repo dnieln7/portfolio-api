@@ -1,6 +1,6 @@
-# NodeJs Token API
+# Portfolio API
 
-_Example of how to use tokens_
+Backend used to store and add projects of my portfolio
 
 ## Start 🚀
 
