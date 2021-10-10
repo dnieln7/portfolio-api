@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: '1.0.0'
-  title: nodejs-token-api
+  title: portfolio-api-2
 
 host: localhost:10010
 
@@ -35,7 +35,7 @@ securityDefinitions:
 
 basePath: /
 
-schemes: [http, https]
+schemes: [ http, https ]
 
 consumes:
   - application/json
@@ -81,7 +81,7 @@ paths:
       operationId: register
       description: Create a new user
       security:
-        - Bearer: []
+        - Bearer: [ ]
       x-security-scopes:
         - admin
       parameters:
@@ -119,7 +119,7 @@ paths:
       operationId: postProject
       description: Save a new project
       security:
-        - Bearer: []
+        - Bearer: [ ]
       x-security-scopes:
         - admin
       parameters:
@@ -167,7 +167,7 @@ paths:
       operationId: putProject
       description: Update an existing project
       security:
-        - Bearer: []
+        - Bearer: [ ]
       x-security-scopes:
         - admin
       parameters:
@@ -198,7 +198,7 @@ paths:
       operationId: deleteProject
       description: Delete an existing project
       security:
-        - Bearer: []
+        - Bearer: [ ]
       x-security-scopes:
         - admin
       parameters:
@@ -313,31 +313,30 @@ definitions:
         type: string
       summary:
         type: string
-      image:
-        type: string
-      type:
-        type: string
       year:
         type: integer
-      finished:
-        type: boolean
-      updates:
-        type: boolean
-      executableUrl:
+      importance:
+        type: number
+        format: float
+        minimum: 0.0
+        maximum: 1.0
+        exclusiveMinimum: true
+        exclusiveMaximum: false
+      thumbnail:
         type: string
-      executableGit:
+      images:
+        type: array
+        items:
+          type: string
+      tags:
+        type: array
+        items:
+          type: string
+      duration:
         type: string
-      webUrl:
+      description:
         type: string
-      webGit:
-        type: string
-      androidUrl:
-        type: string
-      androidGit:
-        type: string
-      hostingDetails:
-        type: string
-      languages:
+      features:
         type: array
         items:
           type: string
@@ -345,15 +344,15 @@ definitions:
         type: array
         items:
           type: string
-      problem:
+      androidUrl:
         type: string
-      difficulties:
+      androidGit:
         type: string
-      solution:
+      webUrl:
         type: string
-      comments:
+      webGit:
         type: string
-      features:
-        type: array
-        items:
-          type: string
+      programUrl:
+        type: string
+      programGit:
+        type: string

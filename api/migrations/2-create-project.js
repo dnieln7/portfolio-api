@@ -17,31 +17,47 @@ module.exports = {
                 type: Sequelize.TEXT,
                 allowNull: false
             },
-            image: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            type: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
             year: {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
-            finished: {
-                type: Sequelize.BOOLEAN,
+            importance: {
+                type: Sequelize.FLOAT,
                 allowNull: false
             },
-            updates: {
-                type: Sequelize.BOOLEAN,
+            thumbnail: {
+                type: Sequelize.TEXT,
                 allowNull: false
             },
-            executableUrl: {
+            images: {
+                type: Sequelize.ARRAY(Sequelize.TEXT),
+                allowNull: false
+            },
+            tags: {
+                type: Sequelize.ARRAY(Sequelize.STRING),
+                allowNull: false
+            },
+            duration: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            executableGit: {
+            description: {
+                type: Sequelize.TEXT,
+                allowNull: false
+            },
+            features: {
+                type: Sequelize.ARRAY(Sequelize.STRING),
+                allowNull: false
+            },
+            technologies: {
+                type: Sequelize.ARRAY(Sequelize.STRING),
+                allowNull: false
+            },
+            androidUrl: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            androidGit: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
@@ -53,44 +69,12 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            androidUrl: {
+            programUrl: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            androidGit: {
+            programGit: {
                 type: Sequelize.STRING,
-                allowNull: false
-            },
-            hostingDetails: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            languages: {
-                type: Sequelize.ARRAY(Sequelize.STRING),
-                allowNull: false
-            },
-            technologies: {
-                type: Sequelize.ARRAY(Sequelize.STRING),
-                allowNull: false
-            },
-            problem: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            difficulties: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            solution: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            comments: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            features: {
-                type: Sequelize.ARRAY(Sequelize.STRING),
                 allowNull: false
             },
             createdAt: {
