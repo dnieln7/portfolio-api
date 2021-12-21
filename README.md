@@ -1,6 +1,6 @@
 # Portfolio API
 
-Backend used to store and add projects of my portfolio [dnieln7.fun](https://dnieln7.fun/projects)
+Backend used to store and add projects of my portfolio
 
 ## Start 🚀
 
