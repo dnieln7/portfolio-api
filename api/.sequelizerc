@@ -1,7 +1,11 @@
 const path = require('path');
 
+require('dotenv').config({
+    path: '../.env'
+});
+
 module.exports = {
-  'env': 'production',
+  'env': process.env.SEQUELIZE_ENV,
   'config': path.resolve('./config', 'config.js'),
   'models-path': path.resolve('./models'),
   'seeders-path': path.resolve('./seeders'),
